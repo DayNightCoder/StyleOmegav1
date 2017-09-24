@@ -63,7 +63,7 @@ private static HashMap<String,String> CartMap=  new HashMap();
         // Check login status
         if(!this.isLoggedIn()){
             // user is not logged in redirect him to Login Activity
-            Intent i = new Intent(_context, LoginActivity.class);
+            Intent i = new Intent(_context, Main3Activity.class);
             // Closing all the Activities
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -85,6 +85,7 @@ private static HashMap<String,String> CartMap=  new HashMap();
 
         CartMap.put("Hello","2");
         editor.putStringSet("Hello",CartMap.keySet()).commit();
+
 
     }
     public Set Cart(){

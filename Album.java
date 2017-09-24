@@ -7,12 +7,12 @@ package com.example.sachinpc.styleomegav10;
 public class Album {
     private String name;
     private int numOfSongs;
-    private int thumbnail;
+    private String thumbnail;
 
     public Album() {
     }
 
-    public Album(String name, int numOfSongs, int thumbnail) {
+    public Album(String name, int numOfSongs, String thumbnail) {
         this.name = name;
         this.numOfSongs = numOfSongs;
         this.thumbnail = thumbnail;
@@ -34,11 +34,11 @@ public class Album {
         this.numOfSongs = numOfSongs;
     }
 
-    public int getThumbnail() {
+    public String getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(int thumbnail) {
+    public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
 }

@@ -84,7 +84,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
 //                                final String update_Q= upd_q.getText().toString();
                     dialog.show();
 
-
+/*
                     btn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -92,7 +92,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
                             EditText quantity= (EditText) dialog.findViewById(R.id.add_q);
 
                             String add_Q= quantity.getText().toString();
-                           if( c.addToCart(v,album.getName(),add_Q)){
+                           if( c.addToCart(v,album.album.getName(),add_Q)){
                                c.viewCart(v,sp.getUserName());
                                dialog.dismiss();
                            }
@@ -104,7 +104,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
 
 
                         }
-                    });
+                    }); */
 //                    c.viewCart(v,sp.getUserName());
                 }
             }

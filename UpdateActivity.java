@@ -23,12 +23,12 @@ public class UpdateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
-        etusername = (EditText) findViewById(R.id.update_q);
-        etEmail = (EditText) findViewById(R.id.email);
-        etPassword1 = (EditText) findViewById(R.id.password1);
-        etPassword2 = (EditText) findViewById(R.id.Password2);
+        etusername = (EditText) findViewById(R.id.u_name);
+        etEmail = (EditText) findViewById(R.id.item_type);
+        etPassword1 = (EditText) findViewById(R.id.u_pw);
+        etPassword2 = (EditText) findViewById(R.id.item_price);
         etFName = (EditText) findViewById(R.id.fname);
-        etLName = (EditText) findViewById(R.id.lname);
+        etLName = (EditText) findViewById(R.id.item_type);
         // Get Reference to variables
         setValues();
 

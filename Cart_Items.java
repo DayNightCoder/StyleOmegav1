@@ -5,10 +5,11 @@ package com.example.sachinpc.styleomegav10;
  */
 
 public class Cart_Items {
-    private String Name;
+  //  private String Name;
     private String ID;
     private String Quantity;
     private String price;
+    private String pro_id;
     public String getPrice() {
         return price;
     }
@@ -19,21 +20,22 @@ public class Cart_Items {
 
 
 
-    public Cart_Items(String name, String ID, String quantity,String Price) {
-        Name = name;
+    public Cart_Items(String pro_id, String ID, String quantity,String Price) {
+        this.pro_id = pro_id;
         this.ID = ID;
-        Quantity = quantity;
+        this.Quantity = quantity;
         this.price=Price;
-    }
 
-    public String getName() {
+    }
+/*
+    public String get() {
         return Name;
     }
 
     public void setName(String name) {
         Name = name;
     }
-
+*/
     public String getID() {
         return ID;
     }
@@ -57,9 +59,17 @@ public double calTotal(){
     @Override
     public String toString() {
         return "Cart_Items{" +
-                "Name='" + Name + '\'' +
+                "Item_ID='" + pro_id + '\'' +
                 ", ID='" + ID + '\'' +
                 ", Quantity='" + Quantity + '\'' +
                 '}';
+    }
+
+    public String getPro_id() {
+        return pro_id;
+    }
+
+    public void setPro_id(String pro_id) {
+        this.pro_id = pro_id;
     }
 }

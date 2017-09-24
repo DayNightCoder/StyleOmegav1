@@ -91,18 +91,18 @@ public class Main5Activity extends AppCompatActivity {
      * Adding few albums for testing
      */
     private void prepareAlbums() {
-        int[] covers = new int[]{
-                R.drawable.album1,
-                R.drawable.album2,
-                R.drawable.album3,
-                R.drawable.album4,
-                R.drawable.album5,
-                R.drawable.album6,
-                R.drawable.album7,
-                R.drawable.album8,
-                R.drawable.album9,
-                R.drawable.album10,
-                R.drawable.album11};
+        String[] covers = new String[]{
+                "https ://ibb.co/cqZ4h5",
+                "https://ibb.co/mMn1Uk",
+                "https://ibb.co/esUtaQ",
+                "https://ibb.co/bAfMUk",
+
+                "https://ibb.co/cJMjh5",
+                "https://ibb.co/kGy89k",
+                "https://ibb.co/gPix25",
+                "https://ibb.co/eCheFQ",
+                "https://ibb.co/jph1Uk",
+                "https://ibb.co/iQnqN5"};
 
         Album a = new Album("True Romance", 13, covers[0]);
         albumList.add(a);

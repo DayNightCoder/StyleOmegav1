@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,8 +60,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Cart_Items cart = cartList.get(position);
-
-       holder.name.setText(cart.getName());
+        dbClass db= dbClass.getInstance(holder.itemView.getContext());
+       holder.name.setText(db.getNameforID(cart.getPro_id()));
         holder.id.setText("No of items: "+cart.getQuantity());
         holder.price.setText(String.valueOf(cart.calTotal()));
         holder.button.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +104,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                                 Button btn= (Button) dialog.findViewById(R.id.button5);
 //                                final String update_Q= upd_q.getText().toString();
                                 dialog.show();
-
+                                final cartLogic c= new cartLogic();
 
                                 btn.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -113,6 +114,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
                                         String update_Q= upd_q.getText().toString();
                                         if( db.updateCartInfo(cart.getID(),update_Q)) {
+                                            if(c.UpdateQuantities(v,Integer.parseInt(cart.getQuantity()),Integer.parseInt(update_Q),Integer.parseInt(db.getQuantityForId(cart.getPro_id())),cart.getPro_id())){
+                                                Log.d("Cart update succesful","new inventory :"+db.getQuantityForId(cart.getPro_id()));
+                                            }
                                             Toast.makeText(view.getContext(), "Successfully updated!", Toast.LENGTH_SHORT).show();
                                             Intent in = new Intent(view.getContext(),Main7Activity.class);
                                             view.getContext().startActivity(in);

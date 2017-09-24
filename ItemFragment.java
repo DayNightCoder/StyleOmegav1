@@ -1,109 +1,157 @@
 package com.example.sachinpc.styleomegav10;
 
+
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
-import com.example.sachinpc.styleomegav10.dummy.DummyContent;
-import com.example.sachinpc.styleomegav10.dummy.DummyContent.DummyItem;
+import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
 public class ItemFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
+    private RecyclerView recyclerView;
+    //private Item_Adapter adapter;
+    View rootView;
+    private   ArrayList<Display_Items> ItemList ;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public ItemFragment() {
+    public String getType() {
+        return type;
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static ItemFragment newInstance(int columnCount) {
-        ItemFragment fragment = new ItemFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
+    public void setType(String type) {
+        this.type = type;
     }
+
+    String type;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
+      // type= savedInstanceState.getString("Type");
     }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        // Inflate the layout for this fragment
+        rootView = inflater.inflate(R.layout.fragment_women, container, false);
+        //    initCollapsingToolbar();
+  //      ItemList= new ArrayList<>();
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+//ArrayList<Display_Items> items= savedInstanceState.getParcelableArrayList("ItemsArray");
+       // setItemList(items);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.wmen_recycler);
+        recyclerView.setHasFixedSize(true);
+
+        //adapter = new Item_Adapter(rootView.getContext(), albumList);
+       // ProductLogic pl = new ProductLogic();
+       // pl.loadProducts(rootView);
+
+        //cartLogic cL= new cartLogic();
+        //  cL.cf(this.getActivity(),5);
+
+     //  final dbClass db = new dbClass(this.getContext());
+        //getAlbumList().addAll(db.getProducts());
+     // setItemList(db.getProductsFor(type));
+        //  new Thread(new Runnable() {
+        //    @Override
+        //   public void run() {
+
+setAdapter(recyclerView,rootView,this.getContext(),ItemList);
+
+        //    }
+        //   }).start();
+        //
+
+
+        // prepareAlbums();
+
+        try {
+            Glide.with(this).load(R.drawable.cover).into((ImageView) rootView.findViewById(R.id.backdrop_mens));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rootView;
+    }
+
+    public void setAdapter(RecyclerView recyclerView, View rootView, Context context, List <Display_Items> itemsList){
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(rootView.getContext(), 2);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(2), true));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        adapter adapterobj = new adapter(context,itemsList);
+        recyclerView.setAdapter(adapterobj);
+
+    }
+
+    public ArrayList<Display_Items> getItemList() {
+        return ItemList;
+    }
+
+
+
+
+    public void setItemList(ArrayList<Display_Items> ItemList) {
+        this.ItemList = ItemList;
+    }
+
+
+    /**
+     * RecyclerView item decoration - give equal margin around grid item
+     */
+    public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
+
+        private int spanCount;
+        private int spacing;
+        private boolean includeEdge;
+
+        public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
+            this.spanCount = spanCount;
+            this.spacing = spacing;
+            this.includeEdge = includeEdge;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            int position = parent.getChildAdapterPosition(view); // item position
+            int column = position % spanCount; // item column
+
+            if (includeEdge) {
+                outRect.left = spacing - column * spacing / spanCount; // spacing - column * ((1f / spanCount) * spacing)
+                outRect.right = (column + 1) * spacing / spanCount; // (column + 1) * ((1f / spanCount) * spacing)
+
+                if (position < spanCount) { // top edge
+                    outRect.top = spacing;
+                }
+                outRect.bottom = spacing; // item bottom
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                outRect.left = column * spacing / spanCount; // column * ((1f / spanCount) * spacing)
+                outRect.right = spacing - (column + 1) * spacing / spanCount; // spacing - (column + 1) * ((1f /    spanCount) * spacing)
+                if (position >= spanCount) {
+                    outRect.top = spacing; // item top
+                }
             }
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
-        return view;
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * Converting dp to pixel
      */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+    private int dpToPx(int dp) {
+        Resources r = getResources();
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 }
